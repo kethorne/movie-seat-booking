@@ -39,6 +39,7 @@ body {
 
 .row {
     display: flex;
+    /*margin-left: 50px;*/
 }
 .seat {
     background-color: #444451;
