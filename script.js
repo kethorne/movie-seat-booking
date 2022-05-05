@@ -16,8 +16,6 @@ let movies = {
 // console.log(movies["Labyrinth"].price)
 // console.log(movies[selectedMovie].price)
 let selectedMovie;
-// const count = document.getElementById('count');
-// const total = document.getElementById('total');
 let numseatsSelected = 0;
 //generates the seat on first time opening page for each movie
 const seatGenerator = () => {
@@ -72,25 +70,24 @@ document.getElementById("movie").addEventListener("change", (ev) => {
 });
 //seat selection on click event
 document.getElementById('seat-container').addEventListener("click", (ev) => {
-    let movieSeats = [];
     const rowIndex = ev.target.getAttribute("data-rowIndex")
     const seatIndex = ev.target.getAttribute("data-seatIndex");
     movies[ selectedMovie ].seats[ rowIndex ][ seatIndex ].selected = true;
     //add one to seats selected
     numseatsSelected += 1;
     updateHTML();
-    // seatSelected.push([...seats].indexOf(ev.target));
-    // console.log(seatSelected)
-    //     seats.forEach((seat, index) => {
-    //         if(seatSelected.indexOf(index) > -1) {
-    //             movieSeats.push(seatSelected);
-    //             console.log(movieSeats);
-    //
-    //             updateHTML();
-    //         }
-    //     })
-    // updateHTML();
-    // When a seat is selected, figure out which index it is, find it in the array,
-    // set the selected property on the object in the seats array, then update your html
-})
+});
 //seat selected turns to occupied on submit button event
+document.getElementById('submit').addEventListener('click', (ev) => {
+    console.log(movies[ selectedMovie ].seats[ 0 ][ 1 ].selected)
+    for (const [rowIndex, row] of movies[ selectedMovie ].seats.entries()) {
+        for (const [seatIndex, seat] of row.entries()) {
+            if (seat.selected) {
+                seat.selected = false;
+                seat.occupied = true;
+                console.log(rowIndex, seatIndex)
+            }
+        }
+    }
+    updateHTML();
+});
